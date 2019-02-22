@@ -102,39 +102,25 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # print(f"robot position is: {self._position}")
-        # print(f"robot light is: {self._light}")
-        # print(f"robot item is: {self._item}")
-        # print(self.compare_item())
-
-        self.set_light_on()
 
         def Compare():
+            # Turns the light on when you are comparing items
             self.set_light_on()
-            # If the light is on run?
-            # print(l)
-            # print('in Compare!')
-            # print(f"robot light is: {self._light}")
-            # print(f"robot item is: {self._item}")
-            # print(f"robot position is: {self._position}")
-            # print(f"robot item at position is: {self._list[self._position]}")
+            # If either item is None swap it, if you are at the end of your list you turn the light off and move on. Otherwise you move right and compare with new item
             if self.compare_item() == None:
                 self.swap_item()
                 if self.can_move_right() == False:
                     self.set_light_off()
-                    # print(f"light is OFF at position: {self._position}")
-                    # print(l)
                     pass
                 else:
                     self.move_right()
                     Compare()
                 self.move_right()
+            # If comparison item is bigger then swap it, if you are at the end of your list you turn the light off and move on. Otherwise you move right and compare with new item
             if self.compare_item() == -1:
                 self.swap_item()
                 if self.can_move_right() == False:
                     self.set_light_off()
-                    # print(f"light is OFF at position: {self._position}")
-                    # print(l)
                     pass
                 else:
                     self.move_right()
@@ -142,29 +128,25 @@ class SortingRobot:
                 self.move_right()
                 Compare()
                 pass
+            # If comparison item is smaller or equal then move right and compare again, if you are at the end of your list swap the item (since the item you're holding should be at the end), turn the light off and move on.
             if self.compare_item() == 1 or self.compare_item() == 0:
                 if self.can_move_right() == False:
                     self.swap_item()
                     self.set_light_off()
-                    # print(f"light is OFF at position: {self._position}")
-                    # print(l)
                     pass
                 else:
                     self.move_right()
                     Compare()
                 pass
 
-
         for i in range(0, len(self._list)):
-
-            # print(f"index is: {i}")
+            # If you are at the end of the list the light will be OFF
             if self._light == "OFF":
-                # print(f"light is OFF at index: {i}")
-                # print(self._position)
+                # If you are not at the end of the list move all the way to the beginning and run Compare again with the current item
                 while self._position >= 1:
                     self.move_left()
-                # print(self._position)
                 Compare()
+            # If the either item is None swap it and if you can move right then move right and run compare again otherwise you are at the end of the list with None which means you are finished and the list is sorted.
             if self.compare_item() == None:
                 self.swap_item()
                 if self.can_move_right() == True:
@@ -172,9 +154,6 @@ class SortingRobot:
                     Compare()
                 else:
                     return self._list
-
-        return self._list
-
 
 if __name__ == "__main__":
         # Test our your implementation from the command line
