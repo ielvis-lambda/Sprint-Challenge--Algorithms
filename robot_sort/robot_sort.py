@@ -106,49 +106,24 @@ class SortingRobot:
             # print(f"the list is {self._list}")
 
             while self.can_move_right() == True:
-                # print(f"HERE {self._list}")
-                # print(f"ITEM {self._item}")
-                # print(f"POSITION {self._position}")
-                # print(f"CARD IN FRONT {self._list[self._position]}")
 
                 if self.compare_item() == -1:
-                    # print(f"BEFORE -1 SWAP {self._list}")
-                    # print(f"ITEM {self._item}")
-                    # print(f"POSITION {self._position}")
-                    # print(f"CARD IN FRONT {self._list[self._position]}")
                     if self.can_move_right() == False:
-                        # print(f"-1 -1 -1 HERE{self._list}")
                         self.move_left()
                         return
                     self.swap_item()
-                    # print(f"After -1 SWAP {self._list}")
-                    # print(f"ITEM {self._item}")
-                    # print(f"POSITION {self._position}")
-                    # print(f"CARD IN FRONT {self._list[self._position]}")
                     return
 
-                if self.compare_item() == 1:
+                elif self.compare_item() == 1:
                     if self.can_move_right() == True:
-                        # print(f" 1 SKIP {self._list}")
-                        # print(f"ITEM {self._item}")
-                        # print(f"POSITION {self._position}")
-                        # print(f"CARD IN FRONT {self._list[self._position]}")
                         self.move_right()
                         return
                     self.set_light_off()
                     return
 
-                if self.compare_item() == None:
-                    # print(f"BEFORE NONE SWAP {self._list}")
-                    # print(f"ITEM {self._item}")
-                    # print(f"POSITION {self._position}")
-                    # print(f"CARD IN FRONT {self._list[self._position]}")
+                elif self.compare_item() == None:
                     self.swap_item()
                     self.move_right()
-                    # print(f"AFTER NONE SWAP {self._list}")
-                    # print(f"ITEM {self._item}")
-                    # print(f"POSITION {self._position}")
-                    # print(f"CARD IN FRONT {self._list[self._position]}")
                     return
 
             if self.compare_item() == 1:
