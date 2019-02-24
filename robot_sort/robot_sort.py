@@ -27,7 +27,6 @@ class SortingRobot:
         """
         If the robot can move to the right, it moves to the right and
         returns True. Otherwise, it stays in place and returns False.
-
         This will increment the time counter by 1.
         """
         self._time += 1
@@ -41,7 +40,6 @@ class SortingRobot:
         """
         If the robot can move to the left, it moves to the left and
         returns True. Otherwise, it stays in place and returns False.
-
         This will increment the time counter by 1.
         """
         self._time += 1
@@ -55,7 +53,6 @@ class SortingRobot:
         """
         The robot swaps its currently held item with the list item in front
         of it.
-
         This will increment the time counter by 1.
         """
         self._time += 1
@@ -65,7 +62,6 @@ class SortingRobot:
     def compare_item(self):
         """
         Compare the held item with the item in front of the robot:
-
         If the held item's value is greater, return 1.
         If the held item's value is less, return -1.
         If the held item's value is equal, return 0.
@@ -106,38 +102,70 @@ class SortingRobot:
         self.set_light_on()
 
         def Compare():
-            self.set_light_on()
 
-            if self.compare_item() == None:
-                if self.can_move_right() == False:
-                    print(f"position is {self._position}")
-                    print(f"item is {self._item}")
-                    print(f"list is {self._list}")
+            # print(f"the list is {self._list}")
+
+            while self.can_move_right() == True:
+                # print(f"HERE {self._list}")
+                # print(f"ITEM {self._item}")
+                # print(f"POSITION {self._position}")
+                # print(f"CARD IN FRONT {self._list[self._position]}")
+
+                if self.compare_item() == -1:
+                    # print(f"BEFORE -1 SWAP {self._list}")
+                    # print(f"ITEM {self._item}")
+                    # print(f"POSITION {self._position}")
+                    # print(f"CARD IN FRONT {self._list[self._position]}")
+                    if self.can_move_right() == False:
+                        # print(f"-1 -1 -1 HERE{self._list}")
+                        self.move_left()
+                        return
+                    self.swap_item()
+                    # print(f"After -1 SWAP {self._list}")
+                    # print(f"ITEM {self._item}")
+                    # print(f"POSITION {self._position}")
+                    # print(f"CARD IN FRONT {self._list[self._position]}")
+                    return
+
+                if self.compare_item() == 1:
+                    if self.can_move_right() == True:
+                        # print(f" 1 SKIP {self._list}")
+                        # print(f"ITEM {self._item}")
+                        # print(f"POSITION {self._position}")
+                        # print(f"CARD IN FRONT {self._list[self._position]}")
+                        self.move_right()
+                        return
                     self.set_light_off()
                     return
-                else:
+
+                if self.compare_item() == None:
+                    # print(f"BEFORE NONE SWAP {self._list}")
+                    # print(f"ITEM {self._item}")
+                    # print(f"POSITION {self._position}")
+                    # print(f"CARD IN FRONT {self._list[self._position]}")
                     self.swap_item()
                     self.move_right()
+                    # print(f"AFTER NONE SWAP {self._list}")
+                    # print(f"ITEM {self._item}")
+                    # print(f"POSITION {self._position}")
+                    # print(f"CARD IN FRONT {self._list[self._position]}")
                     return
 
-            elif self.compare_item() == -1:
-                if self.can_move_right() == False:
-                    self.move_left()
-                    return
-                self.swap_item()
-                self.move_right()
-                return
-
-            elif self.compare_item() == 1:
+            if self.compare_item() == 1:
                 self.swap_item()
                 while self.can_move_left() == True:
                     self.move_left()
                 return
 
-            while self.can_move_right() == True:
-                self.move_right()
+            elif self.compare_item() == - 1:
+                while self.can_move_left() == True:
+                    self.move_left()
                 return
 
+            else:
+                self.set_light_off()
+                return
+            return
         while self._light == "ON":
             Compare()
 
@@ -146,11 +174,8 @@ if __name__ == "__main__":
         # Test our your implementation from the command line
         # with `python robot_sort.py`
 
-    # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 7, 9, 14, 20]
-
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
-
-    # l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+    		 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
